@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/* Design tokens from Figma */
+:root {
+  /* Background colors */
+  --bg-primary: #FAF1E3;
+  --bg-sidebar: #FAF1E3;
+
+  /* Text colors */
+  --text-primary: #5D4037;
+  --text-heading: #88642A;
+  --text-secondary: #8B7355;
+  --text-accent: #957139;
+
+  /* Accent/Border colors */
+  --accent: #957139;
+  --border: #957139;
+
+  /* Category colors */
+  --category-random: #F5C4A1;
+  --category-school: #F5E6A3;
+  --category-personal: #A8D5D8;
+
+  /* Category dot colors */
+  --dot-random: #E8A87C;
+  --dot-school: #E8D87C;
+  --dot-personal: #7CB8BC;
+}
+
+@theme inline {
+  /* Colors */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-text-primary: var(--text-primary);
+  --color-text-heading: var(--text-heading);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-accent: var(--text-accent);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-category-random: var(--category-random);
+  --color-category-school: var(--category-school);
+  --color-category-personal: var(--category-personal);
+  --color-dot-random: var(--dot-random);
+  --color-dot-school: var(--dot-school);
+  --color-dot-personal: var(--dot-personal);
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-inria-serif);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Utility for serif headings */
+.font-heading {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Custom scrollbar for the app */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-heading);
+}
+
+/* Input focus styles */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* Remove autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-primary) inset;
+  -webkit-text-fill-color: var(--text-primary);
+}
+
+/* Toast animation */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.2s ease-out;
+}
