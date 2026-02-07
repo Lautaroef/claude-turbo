@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CategorySidebar } from "@/components/notes/category-sidebar";
 import { NotesGrid } from "@/components/notes/notes-grid";
 import { NewNoteButton } from "@/components/notes/new-note-button";
+import { ShortcutsModal } from "@/components/ui/shortcuts-modal";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/components/ui/toast";
 import { api } from "@/lib/api";
@@ -19,6 +20,7 @@ export default function DashboardPage() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
 
   const fetchData = useCallback(async () => {
     try {
@@ -158,8 +160,28 @@ export default function DashboardPage() {
             />
           </div>
 
-          {/* Logout button */}
-          <div className="pb-6 pt-4 border-t border-black/10 mt-auto">
+          {/* Shortcuts & Logout */}
+          <div className="pb-6 pt-4 border-t border-black/10 mt-auto space-y-1">
+            <button
+              onClick={() => setIsShortcutsOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-black/5 rounded-lg transition-colors w-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"
+                />
+              </svg>
+              Shortcuts
+            </button>
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-black/5 rounded-lg transition-colors w-full"
@@ -194,6 +216,12 @@ export default function DashboardPage() {
           <NotesGrid notes={notes} onNoteClick={handleNoteClick} />
         </main>
       </div>
+
+      {/* Shortcuts modal */}
+      <ShortcutsModal
+        isOpen={isShortcutsOpen}
+        onClose={() => setIsShortcutsOpen(false)}
+      />
     </div>
   );
 }

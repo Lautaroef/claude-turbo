@@ -28,9 +28,17 @@ This document highlights the features implemented beyond the base requirements, 
 
 **What it does:** Power-user shortcuts for faster navigation.
 
+**Available Shortcuts:**
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| `Esc` | Close note / Close modal | Note editor, modals |
+| `Ctrl + Enter` | Save and close note | Note editor |
+| `Del` | Delete note (with confirmation) | Note editor (when not typing) |
+
 **Implementation:**
-- `Esc` key closes note editor and returns to dashboard
-- Close button tooltip shows "(Esc)" hint
+- Shortcuts button in sidebar opens a modal with all available shortcuts
+- Inline shortcuts hints displayed in note editor header (desktop only)
+- `Del` key only works when not focused on text inputs (prevents accidental deletion while typing)
 
 **Why it matters:** Experienced users can navigate without touching the mouse, improving productivity.
 
@@ -123,9 +131,10 @@ When presenting the app, highlight these flows:
 
 1. **Mobile Demo:** Resize browser to show responsive design, use hamburger menu
 2. **Toast Demo:** Delete a note, logout, or disconnect network during save
-3. **Keyboard Demo:** Open a note, press Esc to close
-4. **Auto-save Demo:** Type in a note, watch "Saving..." appear, see timestamp update
-5. **Error Demo:** Try to access `/notes/99999` - shows graceful error handling
+3. **Keyboard Demo:** Open a note, try `Esc` to close, `Ctrl+Enter` to save & close, `Del` to delete
+4. **Shortcuts Modal:** Click "Shortcuts" in sidebar to see all available shortcuts
+5. **Auto-save Demo:** Type in a note, watch "Saving..." appear, see timestamp update
+6. **Error Demo:** Try to access `/notes/99999` - shows graceful error handling
 
 ---
 

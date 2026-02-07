@@ -21,9 +21,10 @@ A beautiful, pixel-perfect notes-taking application demonstrating full-stack dev
 - **Auto-save** - Notes save automatically with 500ms debounce
 - **Category Filtering** - Filter notes by category in sidebar
 
-### Extras 
+### Extras
 - **Toast Notifications** - Visual feedback for all actions and errors
-- **Keyboard Shortcuts** - Press `Esc` to close note editor
+- **Keyboard Shortcuts** - `Esc` close, `Ctrl+Enter` save & close, `Del` delete note
+- **Shortcuts Modal** - View all shortcuts from sidebar button
 - **Logout Button** - Secure sign-out with token cleanup
 - **Mobile Responsive** - Hamburger menu, slide-out sidebar, optimized layouts
 - **Error Handling** - Graceful handling of network failures and edge cases

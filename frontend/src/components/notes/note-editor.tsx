@@ -67,13 +67,32 @@ export function NoteEditor({ noteId }: NoteEditorProps) {
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Handle escape key to close
+  // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Escape - close note
       if (e.key === "Escape") {
         handleClose();
       }
+      // Ctrl+Enter - save and close
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        handleSaveAndClose();
+      }
+      // Delete key - delete note (only when not typing in inputs)
+      if (e.key === "Delete" && !isInputFocused()) {
+        e.preventDefault();
+        handleDelete();
+      }
     };
+
+    function isInputFocused(): boolean {
+      const activeElement = document.activeElement;
+      return (
+        activeElement instanceof HTMLInputElement ||
+        activeElement instanceof HTMLTextAreaElement
+      );
+    }
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
@@ -178,6 +197,27 @@ export function NoteEditor({ noteId }: NoteEditorProps) {
     router.push("/");
   }, [router, saveNote, title, content]);
 
+  const handleSaveAndClose = useCallback(async () => {
+    if (!note) return;
+    // Cancel any pending debounced save
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+    // Save immediately
+    setIsSaving(true);
+    try {
+      await api.updateNote(note.id, { title, content });
+      showToast("Note saved", "success");
+      router.push("/");
+    } catch (error) {
+      const apiError = error as ApiError;
+      const message = parseApiError(apiError);
+      showToast(message, "error");
+    } finally {
+      setIsSaving(false);
+    }
+  }, [note, title, content, router, showToast]);
+
   const handleDelete = async () => {
     if (!note) return;
     if (confirm("Are you sure you want to delete this note?")) {
@@ -216,10 +256,29 @@ export function NoteEditor({ noteId }: NoteEditorProps) {
           {isSaving && (
             <span className="text-xs text-text-secondary hidden sm:inline">Saving...</span>
           )}
+
+          {/* Keyboard shortcuts hints - hidden on mobile */}
+          <div className="hidden md:flex items-center gap-3 text-xs text-text-secondary mr-2">
+            <span className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-black/10 rounded text-[10px] font-mono">Esc</kbd>
+              <span>close</span>
+            </span>
+            <span className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-black/10 rounded text-[10px] font-mono">Ctrl</kbd>
+              <span>+</span>
+              <kbd className="px-1.5 py-0.5 bg-black/10 rounded text-[10px] font-mono">↵</kbd>
+              <span>save</span>
+            </span>
+            <span className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-black/10 rounded text-[10px] font-mono">Del</kbd>
+              <span>delete</span>
+            </span>
+          </div>
+
           <button
             onClick={handleDelete}
             className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-            title="Delete note"
+            title="Delete note (Del)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
