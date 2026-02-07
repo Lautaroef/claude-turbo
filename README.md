@@ -2,7 +2,19 @@
 
 A beautiful, pixel-perfect notes-taking application demonstrating full-stack development with Claude Code and Figma MCP integration.
 
-![Notes App Screenshot](docs/screenshot.png)
+## Demo
+
+**[Watch the Demo Video](https://www.loom.com/share/d6d8926b4050483e89d3881c5cd57c90)**
+
+### Screenshots
+
+| Dashboard | Note Editor |
+|-----------|-------------|
+| ![Dashboard](frontend/public/screenshots/dashboard.png) | ![Note Editor](frontend/public/screenshots/note-editor.png) |
+
+| Login | Keyboard Shortcuts |
+|-------|-------------------|
+| ![Login](frontend/public/screenshots/login.png) | ![Shortcuts](frontend/public/screenshots/shortcuts.png) |
 
 ## Tech Stack
 
