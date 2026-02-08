@@ -2,7 +2,10 @@
 
 A beautiful, pixel-perfect notes-taking application demonstrating full-stack development with Claude Code and Figma MCP integration.
 
-## Demo
+## Live Demo
+
+- **Frontend:** https://claude-turbo.vercel.app
+- **Backend API:** https://claude-turbo-production.up.railway.app/api
 
 **[Watch the Demo Video](https://www.loom.com/share/d6d8926b4050483e89d3881c5cd57c90)**
 
@@ -22,7 +25,8 @@ A beautiful, pixel-perfect notes-taking application demonstrating full-stack dev
 - **Frontend:** Next.js 16 + React 19 + TypeScript
 - **Styling:** Tailwind CSS 4
 - **Authentication:** JWT (djangorestframework-simplejwt)
-- **Database:** SQLite (development) / PostgreSQL (production)
+- **Database:** SQLite (development) / Supabase PostgreSQL (production)
+- **Hosting:** Vercel (frontend) + Railway (backend)
 
 ## Features
 
@@ -93,6 +97,13 @@ npm run dev
 ```
 
 Frontend runs at http://localhost:3000
+
+### Option 3: Deploy to Production
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for full instructions on deploying to:
+- **Vercel** (frontend)
+- **Railway** (backend)
+- **Supabase** (database)
 
 ## Project Structure
 
