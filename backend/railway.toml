@@ -4,6 +4,6 @@ dockerfilePath = "Dockerfile"
 
 [deploy]
 preDeployCommand = "python manage.py migrate --noinput"
-startCommand = "python manage.py collectstatic --noinput && gunicorn config.wsgi --bind 0.0.0.0:$PORT --forwarded-allow-ips '*' --workers 2 --timeout 120 --log-level debug"
+startCommand = "./entrypoint.sh"
 healthcheckPath = "/api/health/"
-healthcheckTimeout = 300
+healthcheckTimeout = 30

@@ -9,8 +9,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
+# Make entrypoint script executable
+RUN chmod +x entrypoint.sh
+
 # Railway uses dynamic PORT
 EXPOSE 8000
 
 # Default command (Railway overrides with startCommand from railway.toml)
-CMD ["gunicorn", "config.wsgi", "--bind", "0.0.0.0:8000", "--workers", "2"]
+CMD ["./entrypoint.sh"]
