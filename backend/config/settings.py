@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key-change-in-producti
 
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',') + ['healthcheck.railway.app']
 
 # Application definition
 INSTALLED_APPS = [
@@ -138,3 +138,10 @@ CORS_ALLOWED_ORIGINS = os.getenv(
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
+
+# HTTPS/Proxy settings for Railway
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [
+    'https://claude-turbo.vercel.app',
+    'https://claude-turbo-production.up.railway.app',
+]

@@ -1,5 +1,9 @@
 [build]
-builder = "nixpacks"
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "python manage.py collectstatic --noinput && gunicorn config.wsgi --bind 0.0.0.0:$PORT --log-level debug"
+preDeployCommand = "python manage.py migrate --noinput"
+startCommand = "python manage.py collectstatic --noinput && gunicorn config.wsgi --bind 0.0.0.0:$PORT --forwarded-allow-ips '*' --workers 2 --timeout 120 --log-level debug"
+healthcheckPath = "/api/health/"
+healthcheckTimeout = 300
