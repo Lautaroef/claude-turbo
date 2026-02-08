@@ -7,13 +7,13 @@ set -e
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-# Start Gunicorn
+# Start Gunicorn (1 worker to reduce memory usage on Railway)
 echo "Starting Gunicorn on port $PORT..."
 exec gunicorn config.wsgi:application \
     --bind "0.0.0.0:$PORT" \
     --forwarded-allow-ips "*" \
-    --workers 2 \
+    --workers 1 \
     --timeout 120 \
-    --log-level debug \
+    --log-level info \
     --access-logfile - \
     --error-logfile -
